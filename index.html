@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+<head>
+    <meta charset="UTF-8">
+    <title>Peta Indonesia dengan ECharts</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.0.2/echarts.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+</head>
+<body style="height: 100%; margin: 0">
+    <div id="main" style="height: 100%"></div>
+    <script type="text/javascript">
+        var myChart = echarts.init(document.getElementById('main'));
+
+        myChart.showLoading();
+
+        $.get('json/indo.json', function (geoJson) {
+            myChart.hideLoading();
+            echarts.registerMap('Indonesia', geoJson);
+            // contoh data di sesuikan saja
+            const data = [
+                {name: 'ACEH', value: 5000},
+                {name: 'SUMATERA UTARA', value: 6000},
+                {name: 'SUMATERA BARAT', value: 7000},
+                {name: 'RIAU', value: 8000},
+                {name: 'JAMBI', value: 9000},
+                {name: 'SUMATERA SELATAN', value: 10000},
+                {name: 'BENGKULU', value: 11000},
+                {name: 'LAMPUNG', value: 12000},
+                {name: 'KEPULAUAN BANGKA BELITUNG', value: 13000},
+                {name: 'KEPULAUAN RIAU', value: 14000},
+                {name: 'DKI JAKARTA', value: 15000},
+                {name: 'JAWA BARAT', value: 16000},
+                {name: 'JAWA TENGAH', value: 17000},
+                {name: 'DI YOGYAKARTA', value: 18000},
+                {name: 'JAWA TIMUR', value: 19000},
+                {name: 'BANTEN', value: 20000},
+                {name: 'BALI', value: 21000},
+                {name: 'NUSA TENGGARA BARAT', value: 22000},
+            ];
+
+            myChart.setOption({
+                title: {
+                    text: 'Kepadatan Penduduk di Indonesia',
+                    subtext: 'Contoh saja ya',
+                    left: 'center'
+                },
+                tooltip: {
+                    trigger: 'item',
+                    formatter: '{b}<br/>{c} orang'
+                },
+                toolbox: {
+                    show: true,
+                    orient: 'vertical',
+                    left: 'right',
+                    top: 'center',
+                    feature: {
+                        dataView: {readOnly: false},
+                        restore: {},
+                        saveAsImage: {}
+                    }
+                },
+                visualMap: {
+                    min: 0,
+                    max: 50000,
+                    text: ['High', 'Low'],
+                    realtime: false,
+                    calculable: true,
+                    inRange: {
+                        color: ['lightskyblue', 'yellow', 'orangered']
+                    }
+                },
+                series: [
+                    {
+                        name: 'Kepadatan Penduduk',
+                        type: 'map',
+                        mapType: 'Indonesia',
+                        label: {
+                            show: false
+                        },
+                        data: data,
+                    }
+                ]
+            });
+        });
+    </script>
+</body>
+</html>
