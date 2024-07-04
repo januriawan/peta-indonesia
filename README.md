@@ -9,4 +9,4 @@ Dengan tambahan provinsi
 
  
 ## Demo
-https://januriawan.github.io/peta-indonesia/
+https://januriawan.my.id/peta-indonesia/
